@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="card narrow">
+  <h1>{{ title }}</h1>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% for e in form.non_field_errors %}<p class="error">{{ e }}</p>{% endfor %}
+    {% for field in form %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<small>{{ field.help_text|safe }}</small>{% endif %}
+        {% for e in field.errors %}<p class="error">{{ e }}</p>{% endfor %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn">{{ submit_label|default:"Save" }}</button>
+    {% if cancel_url %}<a class="btn secondary" href="{{ cancel_url }}">Cancel</a>{% endif %}
+  </form>
+  {% if alt_url %}<p class="muted">{{ alt_text }} <a href="{{ alt_url }}">{{ alt_label }}</a></p>{% endif %}
+</div>
+{% endblock %}
