@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Resident dashboard{% endblock %}
+{% block content %}
+<h1>Hello, {{ user.full_name }}</h1>
+<p class="muted">Barangay {{ user.barangay.barangay_name }}, {{ user.barangay.city_municipality }}</p>
+<div class="grid">
+  <div class="card"><div class="muted">Eco-points balance</div><div class="stat">{{ user.points_balance }}</div></div>
+  <div class="card"><div class="muted">Reminder channel</div><div class="stat" style="font-size:1.2rem">{{ user.get_notification_pref_display }}</div></div>
+</div>
+<div class="card">
+  <div class="row"><h2>Upcoming pickups</h2><a href="{% url 'schedules:resident_schedules' %}">All schedules</a></div>
+  {% if upcoming %}
+  <table>
+    <tr><th>Next pickup</th><th>Route</th><th>Waste type</th></tr>
+    {% for item in upcoming %}
+    <tr><td>{{ item.next|date:"D, M j, g:i A" }}</td><td>{{ item.schedule.route_name }}</td><td>{{ item.schedule.get_waste_category_display }}</td></tr>
+    {% endfor %}
+  </table>
+  {% else %}<p class="muted">Your barangay has not posted any schedule yet.</p>{% endif %}
+</div>
+<div class="card">
+  <div class="row"><h2>Announcements</h2><a href="{% url 'schedules:resident_announcements' %}">See all</a></div>
+  {% for a in announcements %}
+    <p><strong>{{ a.title }}</strong><br>{{ a.message|truncatechars:140 }}<br><span class="muted">{{ a.posted_at|date:"M j, Y" }}</span></p>
+  {% empty %}<p class="muted">No current announcements.</p>{% endfor %}
+</div>
+{% endblock %}
