@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Collection schedules{% endblock %}
+{% block content %}
+<h1>Collection schedules</h1>
+<p class="muted">Barangay {{ user.barangay.barangay_name }}. Soonest pickup first.</p>
+{% if items %}
+<table>
+  <tr><th>Next pickup</th><th>Route</th><th>Waste type</th><th>Repeats</th></tr>
+  {% for item in items %}
+  <tr>
+    <td>{{ item.next|date:"D, M j, g:i A" }}</td>
+    <td>{{ item.schedule.route_name }}</td>
+    <td>{{ item.schedule.get_waste_category_display }}</td>
+    <td>Every {{ item.schedule.get_collection_day_display }}, {{ item.schedule.collection_time|time:"g:i A" }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}<div class="card"><p class="muted">No schedules posted for your barangay yet.</p></div>{% endif %}
+{% endblock %}

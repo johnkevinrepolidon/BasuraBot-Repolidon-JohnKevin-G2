@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Announcements{% endblock %}
+{% block content %}
+<h1>Barangay announcements</h1>
+{% for a in announcements %}
+<div class="card">
+  <h2>{{ a.title }}</h2>
+  <p>{{ a.message|linebreaksbr }}</p>
+  <p class="muted">Posted {{ a.posted_at|date:"M j, Y g:i A" }} by {{ a.posted_by.full_name }}{% if a.expires_at %} - until {{ a.expires_at|date:"M j, Y g:i A" }}{% endif %}</p>
+</div>
+{% empty %}<div class="card"><p class="muted">No current announcements.</p></div>{% endfor %}
+{% endblock %}
