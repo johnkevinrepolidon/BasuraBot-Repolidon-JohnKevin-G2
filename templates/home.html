@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>BasuraBot: Garbage Schedule &amp; Eco Tracker</h1>
+  <p>Check your barangay's garbage collection schedule, read announcements and segregate properly.</p>
+  <p><a class="btn" href="{% url 'accounts:register' %}">Create a resident account</a>
+     <a class="btn secondary" href="{% url 'accounts:login' %}">Log in</a></p>
+</div>
+{% endblock %}
