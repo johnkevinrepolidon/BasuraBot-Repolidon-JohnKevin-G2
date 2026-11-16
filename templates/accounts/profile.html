@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}My profile{% endblock %}
+{% block content %}
+<div class="card narrow">
+  <h1>My profile</h1>
+  <table>
+    <tr><th>Full name</th><td>{{ profile_user.full_name }}</td></tr>
+    <tr><th>Email</th><td>{{ profile_user.email }}</td></tr>
+    <tr><th>Mobile number</th><td>{{ profile_user.mobile_number }}</td></tr>
+    <tr><th>Role</th><td>{{ profile_user.get_role_display }}</td></tr>
+    <tr><th>Barangay</th><td>{{ profile_user.barangay }}</td></tr>
+    <tr><th>Reminder channel</th><td>{{ profile_user.get_notification_pref_display }}</td></tr>
+    {% if profile_user.role == 'RESIDENT' %}<tr><th>Eco-points</th><td>{{ profile_user.points_balance }}</td></tr>{% endif %}
+  </table>
+  <p><a class="btn" href="{% url 'accounts:profile_edit' %}">Edit profile</a>
+     <a class="btn secondary" href="{% url 'accounts:password_change' %}">Change password</a></p>
+</div>
+{% endblock %}

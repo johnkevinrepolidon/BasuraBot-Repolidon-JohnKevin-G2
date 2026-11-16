@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Staff dashboard{% endblock %}
+{% block content %}
+<h1>Staff portal</h1>
+<p class="muted">{{ user.full_name }} - Barangay {{ user.barangay.barangay_name }}, {{ user.barangay.city_municipality }}</p>
+<div class="grid">
+  <div class="card"><div class="muted">Active schedules</div><div class="stat">{{ schedule_count }}</div></div>
+  <div class="card"><div class="muted">Current announcements</div><div class="stat">{{ announcement_count }}</div></div>
+  <div class="card"><div class="muted">Active residents</div><div class="stat">{{ resident_count }}</div></div>
+</div>
+<div class="card">
+  <h2>Quick actions</h2>
+  <a class="btn" href="{% url 'schedules:schedule_create' %}">Add schedule</a>
+  <a class="btn" href="{% url 'schedules:announcement_create' %}">Post announcement</a>
+  <a class="btn secondary" href="{% url 'schedules:staff_schedules' %}">Manage schedules</a>
+  <a class="btn secondary" href="{% url 'schedules:staff_announcements' %}">Manage announcements</a>
+</div>
+{% endblock %}
